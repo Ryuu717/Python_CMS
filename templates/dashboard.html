@@ -1,0 +1,99 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1>Dashboard</h1>
+
+        <!-- Summary Cards -->
+        <div class="row mb-4">
+            <!-- Posts Card -->
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Posts</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_posts }}</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Card -->
+            <div class="col-md-3">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_categories }}</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for future data -->
+            <div class="col-md-3">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">-</div>
+                    <div class="card-body">
+                        <h5 class="card-title">-</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Placeholder for future data -->
+            <div class="col-md-3">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">-</div>
+                    <div class="card-body">
+                        <h5 class="card-title">-</h5>
+                        <p class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Chart for Post Distribution -->
+        <div class="row">
+            <div class="col-md-12">
+                <div id="postsChart" style="width: 100%; height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the Google Charts Library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        // Load the Google Charts Visualization API
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Data for the chart
+            var data = google.visualization.arrayToDataTable({{ posts_by_category | tojson }});
+
+            // Chart options
+            var options = {
+                title: 'Posts',
+                titleTextStyle: {
+                    fontSize: 24,  // Increase the font size of the title
+                    bold: true,
+                    color: '#333'
+                },
+                hAxis: { title: 'Category', titleTextStyle: { color: '#333' } },
+                <!-- vAxis: { minValue: 0 }, -->
+                vAxis: {
+                    minValue: 0,
+                    gridlines: { count: 5 },  // Set default gridline count
+                    viewWindow: {
+                        min: 0
+                    },
+                    ticks: [0, 1, 2, 3, 4, 5] // Set ticks to increment by 1
+                },
+                chartArea: { width: '70%', height: '70%' }
+            };
+
+            // Render the chart inside the div
+            var chart = new google.visualization.ColumnChart(document.getElementById('postsChart'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}

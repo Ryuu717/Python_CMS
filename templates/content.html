@@ -1,0 +1,68 @@
+{% extends "header.html" %}
+
+{% block content %}
+    <h1 class="my-4">Content List</h1>
+
+        <!-- Flash messages for success or error -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    <!-- Button to Add New Content -->
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a href="{{ url_for('add_content') }}" class="btn btn-primary mb-4">Add New Content</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Image</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for content in contents %}
+            <tr>
+                <td>{{ content.content_id }}</td>
+                <td>{{ content.title }}</td>
+                <td>{{ content.author }}</td>
+                <td>{{ content.category.name }}</td>
+                <td>{{ content.created_at }}</td>
+                <td>{{ content.updated_at }}</td>
+                <td>
+                    {% if content.image_path %}
+                        <img src="{{ url_for('static', filename='uploads/' + content.image_path) }}" alt="{{ content.title }}" class="img-fluid" style="width: 50px; height: 50px;">
+                        
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('edit_content', content_id=content.content_id) }}" class="btn btn-warning">Edit</a>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_content', content_id=content.content_id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this content?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

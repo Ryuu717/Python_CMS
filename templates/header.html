@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-dark border-right" id="sidebar-wrapper">
+        <div class="navbar-brand d-flex align-items-center ml-3">
+            <!-- Wrap both logo and title in a link to the Blog Page -->
+            <a href="{{ url_for('dashboard') }}" class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='uploads/logo_white.png') }}" alt="CMS Logo" class="logo mr-2">
+                <span class="h4 mb-0 text-white">CMS</span>
+            </a>
+        </div>
+        <!-- <div class="sidebar-heading text-white text-center py-4">CMS</div> -->
+        <div class="list-group list-group-flush">
+            <a href="{{ url_for('dashboard') }}" class="list-group-item list-group-item-action bg-dark text-white {% if request.endpoint == 'dashboard' %}active{% endif %}">
+                Dashboard
+            </a>
+            <a href="{{ url_for('content') }}" class="list-group-item list-group-item-action bg-dark text-white {% if request.endpoint == 'content' %}active{% endif %}">
+                Posts
+            </a>
+            <a href="{{ url_for('list_categories') }}" class="list-group-item list-group-item-action bg-dark text-white {% if request.endpoint == 'list_categories' %}active{% endif %}">
+                Categories
+            </a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+
+                <!-- Blog link in the navbar -->
+                <div class="ml-auto">
+                    <a href="{{ url_for('blog') }}" class="btn btn-outline-primary">Blog</a>
+                </div>
+            </div>
+        </nav>
+      
+
+        <!-- Main Page Content -->
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<!-- Bootstrap and JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Custom JS to toggle the sidebar -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+</body>
+</html>

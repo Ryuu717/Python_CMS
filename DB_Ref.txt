@@ -1,0 +1,49 @@
+-- Create the Category table
+CREATE TABLE IF NOT EXISTS Category (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+-- Create the Content table
+CREATE TABLE IF NOT EXISTS Content (
+    content_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    body TEXT NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    status VARCHAR(50),
+    category_id INT,
+    image_path VARCHAR(255),
+    FOREIGN KEY (category_id) REFERENCES Category(category_id)
+);
+
+
+-- Insert data into the Category table
+INSERT INTO Category (name, description) VALUES
+('HTML/CSS/JS', '-'),
+('TypeScript', '-'),
+('React', '-'),
+('Python', '-'),
+('Node.js', '-'),
+('PHP', '-'),
+('C++', '-'),
+('C#', '-'),
+('Swift', '-'),
+('Java', '-'),
+('Kotlin', '-'),
+('Flutter', '-'),
+('AWS', '-'),
+('GCP', '-'),
+('Azure', '-'),
+('Tableau', '-'),
+('Power BI', '-');
+
+
+INSERT INTO Content (title, body, author, status, category_id, image_path) VALUES
+('React', '----------------------------', 'Ryuu', 'published', 6, 'react.png'),
+('AWS', '----------------------------', 'Ryuu', 'published', 16, 'aws.png'),
+('News Aggregator', '----------------------------', 'Ryuu', 'published', 7, 'news.png'),
+('CMS', '----------------------------', 'Ryuu', 'published', 7, 'cms.png');
+

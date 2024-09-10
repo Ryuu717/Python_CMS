@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+<!-- Top Navbar with Logo and Title -->
+<nav class="navbar navbar-light">
+    <div class="container-fluid d-flex align-items-center">
+        <div class="navbar-brand d-flex align-items-center">
+            <!-- Wrap both logo and title in a link to the Blog Page -->
+            <a href="{{ url_for('blog') }}" class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='uploads/logo.png') }}" alt="CMS Logo" class="logo mr-2">
+                <span class="h4 mb-0">CMS Blog</span>
+            </a>
+        </div>
+
+
+    </div>
+</nav>
+
+
+<!-- Main Page Content -->
+<div class="container-fluid mt-4">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- Bootstrap and JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

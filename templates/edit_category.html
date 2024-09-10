@@ -1,0 +1,21 @@
+{% extends "header.html" %}
+
+{% block content %}
+  <h1 class="my-4">Edit Category: {{ category.name }}</h1>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control", value=category.name) }}
+    </div>
+
+    <div class="form-group">
+      {{ form.description.label(class="form-label") }}
+      {{ form.description(class="form-control", value=category.description) }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Category</button>
+  </form>
+{% endblock %}
