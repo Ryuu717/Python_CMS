@@ -93,9 +93,9 @@ def add_content():
 def edit_content(content_id):
     content = Content.query.get_or_404(content_id)
     # content = db.session.get(Content, content.content_id)
-    form = ContentForm(obj=content)
-    # form = ContentForm()
-    # form.category_id.choices = [(c.category_id, c.name) for c in Category.query.all()]
+    # form = ContentForm(obj=content)
+    form = ContentForm()
+    form.category_id.choices = [(c.category_id, c.name) for c in Category.query.all()]
 
     if form.validate_on_submit():
         # Handle image upload
