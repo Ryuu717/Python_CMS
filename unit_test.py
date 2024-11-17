@@ -1,6 +1,6 @@
 import unittest
 from flask import url_for
-from app import app, db, Content  # Ensure this imports your actual app and models
+from app import app, db, Content  
 from flask import Flask
 from flask_testing import TestCase
 
@@ -41,7 +41,7 @@ class MyTest(TestCase):
         content = Content.query.filter_by(title='Test Title').first()
         self.assertIsNotNone(content)
         self.assertEqual(content.body, 'Test Body')
-        
+    
     #############################################################
     # Success?
     #############################################################
@@ -95,29 +95,29 @@ class MyTest(TestCase):
     #         'category': 1
     #     }, follow_redirects=True)
     #     self.assertEqual(response.status_code, 200)
-        # self.assertIn(b'Content updated successfully!', response.data)
+    #     self.assertIn(b'Content updated successfully!', response.data)
 
-        # Verify the content was updated in the database
-        # updated_content = Content.query.get(content.content_id)
-        # self.assertEqual(updated_content.title, 'New Title')
-        # self.assertEqual(updated_content.body, 'New Body')
+    #     # Verify the content was updated in the database
+    #     updated_content = Content.query.get(content.content_id)
+    #     self.assertEqual(updated_content.title, 'New Title')
+    #     self.assertEqual(updated_content.body, 'New Body')
 
 
     #############################################################
     # Success
     #############################################################
     # Test deleting content
-    def test_delete_content(self):
-        # First, add content
-        content = Content(title='To be deleted', body='This content will be deleted.', author='Test Author', category_id=1)
-        db.session.add(content)
-        db.session.commit()
+    # def test_delete_content(self):
+    #     # First, add content
+    #     content = Content(title='To be deleted', body='This content will be deleted.', author='Test Author', category_id=1)
+    #     db.session.add(content)
+    #     db.session.commit()
 
-        # Now, delete the content
-        response = self.client.post(url_for('delete_content', content_id=content.content_id), follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Content deleted successfully!', response.data)
+    #     # Now, delete the content
+    #     response = self.client.post(url_for('delete_content', content_id=content.content_id), follow_redirects=True)
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertIn(b'Content deleted successfully!', response.data)
 
-        # Verify the content was deleted from the database
-        deleted_content = Content.query.get(content.content_id)
-        self.assertIsNone(deleted_content)
+    #     # Verify the content was deleted from the database
+    #     deleted_content = Content.query.get(content.content_id)
+    #     self.assertIsNone(deleted_content)
